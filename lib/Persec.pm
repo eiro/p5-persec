@@ -1,12 +1,29 @@
 package Persec;
 use Modern::Perl;
 use parent 'Exporter';
-our @EXPORT = qw/ EOS nextChar nextString parse unparsed /;
+our @EXPORT = qw/
+    nextChar nextString
+    unparsed forgive_unparsed slurp_unparsed
+/;
 
-sub EOS       { m{\G\z}mcg    }
-sub WS        { m{\G\s+}mcg   }
-sub canWS     { m{\G\s*}mcg   }
-sub tailingWS { m{\G\s*\z}mcg }
+sub exhaust (&) {
+    my @r;
+    my $code = shift;
+    while ( my @v = $code->() ) { push @r,@v }
+    @r
+}
+
+sub unparsed { substr $_,pos($_) }
+sub forgive_unparsed { pos($_) = length $_ }
+sub slurp_unparsed {
+    my $r = unparsed;
+    forgive_unparsed;
+    $r
+}
+
+sub WS        { m{\G\s+}cg   }
+sub canWS     { m{\G\s*}cg   }
+sub tailingWS { m{\G\s*\z}cg }
 sub token {
     canWS; my $r = $_ ~~ (shift); canWS;
 }
@@ -22,7 +39,6 @@ sub nextString {
     pos($_)+=$l;
     1;
 }
-sub unparsed { substr $_,pos($_) }
 
 sub parse {
     local $_ = pop;
