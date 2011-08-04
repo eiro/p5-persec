@@ -3,6 +3,7 @@ use Modern::Perl;
 use parent 'Exporter';
 our @EXPORT = qw/
     nextChar nextString
+    exhaust
     unparsed forgive_unparsed slurp_unparsed
 /;
 
