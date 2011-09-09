@@ -46,16 +46,8 @@ sub parse {
     pos($_)  = 0;
     my ( $class, $rule ) = @_;
     $rule ||= 'TOP';
-    if ( my @r = $class->$rule ) {
-        wantarray
-        ? (\@r,unparsed)
-        : \@r
-    }
-    else {
-        wantarray
-        ? (undef,unparsed)
-        : ()
-    }
+    if ( my $r = $class->$rule ) { wantarray ? ($r    ,unparsed) : $r }
+    else                         { wantarray ? (undef ,unparsed) : () }
 }
 
 1;
