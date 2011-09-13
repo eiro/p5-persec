@@ -1,12 +1,14 @@
 package Persec;
+use Carp;
 use Modern::Perl;
 use parent 'Exporter';
 our @EXPORT = qw/
     nextChar nextString
     exhaust
+    surroundedBy
+    canWS
     unparsed forgive_unparsed slurp_unparsed
 /;
-
 sub exhaust (&) {
     my @r;
     my $code = shift;
@@ -25,9 +27,6 @@ sub slurp_unparsed {
 sub WS        { m{\G\s+}cg   }
 sub canWS     { m{\G\s*}cg   }
 sub tailingWS { m{\G\s*\z}cg }
-sub token {
-    canWS; my $r = $_ ~~ (shift); canWS;
-}
 
 sub nextChar {
     return unless (shift) eq substr $_, pos($_),1;
@@ -39,6 +38,20 @@ sub nextString {
     return 0 unless $v eq substr $_, pos($_), $l;
     pos($_)+=$l;
     1;
+}
+
+sub surroundedBy {
+    my ( $begin, $end, $rule ) = @_;
+    my $pos = pos($_);
+    unless (nextChar $begin) {
+        return;
+    }
+    my @r = $rule->();
+    if ( nextChar $end ) {
+        return \@r;
+    }
+    my $rem = unparsed;
+    confess "closing symbol '$end' (starting at $pos) never found ($rem)";
 }
 
 sub parse {
