@@ -33,9 +33,11 @@ sub nextChar {
     pos($_)++;
     1;
 }
+
 sub nextString {
-    my $l = length ( my $v = shift );
-    return 0 unless $v eq substr $_, pos($_), $l;
+    my $l      = length ( my $v = shift );
+    my $substr = substr $_, pos($_), $l;
+    return 0 unless $v eq $substr;
     pos($_)+=$l;
     1;
 }
