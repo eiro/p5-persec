@@ -3,13 +3,13 @@ package Math;
 use Modern::Perl;
 use Persec;
 use parent 'Persec';
-use re qw< /xms >;
+# use re qw< /xms >; # die! outdated linux distributions! die! 
 use Carp;
 
 sub block;
 sub expr;
-sub value       { m{\G \s* (\d+)    \s*}cgx and return $1 }
-sub operator    { m{\G \s* ([-+*/]) \s*}cgx and return $1 }
+sub value       { m{\G \s* (\d+)    \s*}cgxms and return $1 }
+sub operator    { m{\G \s* ([-+*/]) \s*}cgxms and return $1 }
 sub block       {
     surroundedBy qw/ (  ) /
     , \&expr

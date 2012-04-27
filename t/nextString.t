@@ -12,10 +12,10 @@ sub TOP {
 package testB;
 use Persec;
 use parent 'Persec';
-use re '/xms';
+# use re '/xms'; perl 5.14 only
 
 sub TOP {
-    m{ \G \w+ \s+ }cg or return 0;
+    m{ \G \w+ \s+ }cgxms or return 0;
     nextString "YEAH" and return pos($_);
     0;
 }
