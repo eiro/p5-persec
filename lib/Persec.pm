@@ -1,6 +1,9 @@
 package Persec;
 use Carp;
 use Modern::Perl;
+# ABSTRACT: so jalous of haskell's Parsec ...
+our $VERSION = '0.0';
+
 use parent 'Exporter';
 our @EXPORT = qw/
     nextChar nextString
