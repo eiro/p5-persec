@@ -8,7 +8,8 @@ my $builder = Module::Build->new
     dist_version_from lib/Persec.pm
     license perl
     }
-, dist_author => 'Marc Chantreux <marcc@cpan.org>'
+, dist_author   => 'Marc Chantreux <marcc@cpan.org>'
+, dist_abstract => 'combinators for parser, inspired by Persec'
 , build_requires => {qw{
 	Test::Pod   1.22
 	Test::More  0
