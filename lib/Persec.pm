@@ -2,6 +2,7 @@ package Persec;
 use Carp;
 use Modern::Perl;
 use parent 'Exporter';
+our $VERSION = '0.0';
 our @EXPORT = qw/
     nextChar nextString
     exhaust
