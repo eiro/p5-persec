@@ -1,0 +1,5 @@
+Build.PL
+lib/Persec.pm
+README
+t/nextString.t
+t/10_MathExpr.t
