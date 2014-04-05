@@ -16,15 +16,17 @@ sub back { pos($_) = shift }
 
 sub rule {
     my ($regexp) = @_;
-    sub { /\G$regexp/cgxms ? {%+} : () } 
+    #$regexp ="\\G$regexp";
+    sub { /$regexp/cgxms ? {%+} : () } 
 }
 
 sub token {
     my ($regexp) = @_;
+    $regexp ="\\G$regexp";
     sub { /\G$regexp/cg ? $& : () } 
 }
 
-sub try {
+sub try ($) {
     my ( $hypothesis ) = @_;
     my $start = pos($_);
 

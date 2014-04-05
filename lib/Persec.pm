@@ -5,7 +5,6 @@ use Modern::Perl;
 our $VERSION = '0.0';
 
 use parent 'Exporter';
-our $VERSION = '0.0';
 our @EXPORT = qw/
     nextChar nextString
     exhaust
